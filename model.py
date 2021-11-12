@@ -2,13 +2,7 @@ import torch
 import os
 import math
 import numpy as np
-import pandas as pd
-import random
-from tqdm import tqdm
-from torch.utils.data import Dataset, DataLoader
-from torch.utils.data.sampler import SubsetRandomSampler
 import torch.nn.functional as F
-import spacy
 
 # mask padding
 def get_mask(x, pad_idx):
