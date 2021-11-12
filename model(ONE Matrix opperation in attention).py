@@ -93,15 +93,16 @@ class Feed_Forward(torch.nn.Module):
     self.dropout = torch.nn.Dropout(p = dropout)
     self.post_LN = post_LN
   def forward(self,x):
+    res = x
     if self.post_LN == False:
       x = self.LN(x)
     out = self.relu(self.w1(x))
     out = self.w2(out)
     out = self.dropout(out)
     if self.post_LN == False:
-      out = out + x
+      out = out + res
     else:
-      out = self.LN(out + x)
+      out = self.LN(out + res)
     return out
 
   
