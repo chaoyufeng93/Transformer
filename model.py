@@ -10,6 +10,10 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import torch.nn.functional as F
 import spacy
 
+def get_mask(x, pad_idx):
+  mask = (x != pad_idx).unsqueeze(-2)
+  mask = torch.bmm(mask.float().permute(0,2,1), mask.float())
+  return mask
 
 class Positional_Emb(torch.nn.Module):
   def __init__(self,seq_len, emb_dim, dropout = 0):
