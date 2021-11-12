@@ -168,6 +168,7 @@ class Transformer(torch.nn.Module):
     self.linear.weight = self.embedding_out.weight
 
   def forward(self, x, y):
+    # note!!!! '<pad>' is 1 in this model!
     src_mask, tgt_mask = get_mask(x, 1), get_mask(y, 1)
     x, y = self.embedding_in(x) * math.sqrt(self.emb_dim), self.embedding_out(y) * math.sqrt(self.emb_dim)
     x, y = self.pos_emb(x), self.pos_emb(y)
