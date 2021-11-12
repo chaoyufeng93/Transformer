@@ -10,6 +10,7 @@ from torch.utils.data.sampler import SubsetRandomSampler
 import torch.nn.functional as F
 import spacy
 
+# mask padding
 def get_mask(x, pad_idx):
   mask = (x != pad_idx).unsqueeze(-2)
   mask = torch.bmm(mask.float().permute(0,2,1), mask.float())
@@ -46,7 +47,7 @@ class Attention(torch.nn.Module):
     q, k, v = self.query_w(q), self.key_w(k), self.value_w(v)
     qk = torch.bmm(q, k.permute(0,2,1)) / math.sqrt(self.att_dim)
     qk = qk.masked_fill(mask_pad == 0, -1e20)
-    if self.mask == True:
+    if self.mask == True: # mask for decoder 
       qk = torch.tril(qk)
       qk = qk.masked_fill(qk == 0, -1e20)
     att_w = self.dropout(self.softmax(qk))
