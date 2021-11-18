@@ -16,4 +16,4 @@ POST_LN: True
 
 DROPOUT = 0.15
 
-bleu: 
+bleu score: comming soon
